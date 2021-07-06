@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.math.BigDecimal;
+
 public class Calculator extends Application {
 
     String display = "";
@@ -85,9 +87,13 @@ public class Calculator extends Application {
                         }
                     }
                     operator = "";
-                    display = String.valueOf(temp);
+                    BigDecimal bd = new BigDecimal(temp);
+                    display = String.valueOf(bd);
                 }
                 displayArea.setText(display);
+                System.out.println(temp);
+                System.out.println(operator);
+                System.out.println(display);
 
 
             });
