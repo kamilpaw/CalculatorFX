@@ -15,9 +15,15 @@ import java.math.RoundingMode;
 
 public class Calculator extends Application {
 
-    String display = "";
-    String operator = "";
-    BigDecimal temp = new BigDecimal(0.0);
+    private String display;
+    private String operator;
+    private BigDecimal temp;
+
+    public Calculator() {
+        this.display = "";
+        this.operator = "";
+        this.temp = new BigDecimal("0");
+    }
 
     public void start(Stage stage) {
         VBox vBox = new VBox();
@@ -40,11 +46,11 @@ public class Calculator extends Application {
 
                 String input = button.getText();
 
-                if (input.matches("0|1|2|3|4|5|6|7|8|9") || input.equals(".")) {
+                if (input.matches("[0123456789]") || input.equals(".")) {
                     display = display + input;
                 }
 
-                if (input.equals("+") || input.matches("-|/|x")) {
+                if (input.equals("+") || input.matches("[-/x]")) {
 
                     if (!display.isEmpty() && temp.compareTo(BigDecimal.ZERO)==0) {
                         temp = new BigDecimal(display);
@@ -62,7 +68,7 @@ public class Calculator extends Application {
                             temp = temp.multiply(new BigDecimal(display));
                         }
                         if (operator.equals("/")) {
-                            if (!(Double.valueOf(display) == 0)) {
+                            if (!(Double.parseDouble(display) == 0)) {
                                 temp = temp.divide(new BigDecimal(display), RoundingMode.HALF_UP);
                             }
                         }
@@ -82,7 +88,7 @@ public class Calculator extends Application {
                         temp = temp.multiply(new BigDecimal(display));
                     }
                     if (operator.equals("/")) {
-                        if (!(Double.valueOf(display) == 0)) {
+                        if (!(Double.parseDouble(display) == 0)) {
                             temp = temp.divide(new BigDecimal(display),6, RoundingMode.HALF_DOWN);
                         }
                     }
@@ -91,10 +97,6 @@ public class Calculator extends Application {
                     display = String.valueOf(temp);
                 }
                 displayArea.setText(display);
-                System.out.println("temp: " + temp);
-                System.out.println("operator: " + operator);
-                System.out.println("display: " + display);
-
 
             });
             buttons.getChildren().add(button);
